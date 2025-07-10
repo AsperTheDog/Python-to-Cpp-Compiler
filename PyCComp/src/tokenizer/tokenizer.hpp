@@ -87,12 +87,12 @@ private:
         '+', '-', '*', '/', '%', '=', '<', '>', '!', '&', '|', '^', '~'
     };
 
-    static constexpr std::array<const char*, 10> c_Delimiters{
-        "(", ")", "[", "]", "{", "}", ",", ":", ";", "."
+    static constexpr std::array<const char*, 11> c_Delimiters{
+        "(", ")", "[", "]", "{", "}", ",", ":", ";", ".", "@"
     };
 
-    static constexpr std::array<const char*, 1> c_UnusedDelimiters{
-        "@"
+    static constexpr std::array<const char*, 0> c_UnusedDelimiters{
+        
     };
 
     static constexpr std::array<const char*, 3> c_OpeningDelimiters{

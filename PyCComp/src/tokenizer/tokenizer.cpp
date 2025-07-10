@@ -227,6 +227,7 @@ struct TokenizerTool
 
         if ((p_Char == '"' || p_Char == '\'') && strTokenStart == '\0')
         {
+            finishLineStart();
             finishToken();
             strTokenStart = p_Char;
         }
@@ -280,6 +281,7 @@ struct TokenizerTool
                 }
                 currentToken += p_Char;
                 currentTokenType = OPERATOR;
+                finishLineStart();
                 return true;
             }
         }
@@ -327,11 +329,13 @@ struct TokenizerTool
             {
                 int elem = std::stoi(currentToken);
                 currentToken += l_Char;
+                finishLineStart();
                 return true;
             }
             catch (const std::invalid_argument&) {}
         }
         finishToken();
+        finishLineStart();
         tokenizer.m_Tokens.push_back({ .type = Tokenizer::Token::Type::DELIMITER, .value = std::string(1, l_Char), .line = line, .column = column });
         if (Tokenizer::isOpeningDelimiter(std::string_view(&l_Char, 1)))
         {
@@ -378,7 +382,6 @@ Tokenizer::Tokenizer(const std::string_view p_Contents)
         l_Tool.advanceColumnCount();
         if (l_Tool.checkStringDelimiter(l_Char))
         {
-            l_Tool.finishLineStart(false);
             continue;
         }
         if (l_Tool.checkComment(l_Char))
@@ -387,7 +390,6 @@ Tokenizer::Tokenizer(const std::string_view p_Contents)
         }
         if (l_Tool.checkOperator(l_Char))
         {
-            l_Tool.finishLineStart();
             continue;
         }
         if (l_Char == '\n')
@@ -412,7 +414,6 @@ Tokenizer::Tokenizer(const std::string_view p_Contents)
         }
         if (l_Tool.checkDelimiter(l_Char))
         {
-            l_Tool.finishLineStart();
             continue;
         }
         l_Tool.errors.push_back({ .message = "Invalid character: " + std::string(1, l_Char), .line = l_Tool.line, .column = l_Tool.column });
