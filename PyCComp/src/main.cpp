@@ -21,8 +21,9 @@ int main(const uint32_t argc, char *argv[]) {
     {
         l_Tokenizers.emplace_back(l_Reader.getModule(l_Index)->fileContent);
         std::cout << "Module: " << l_Reader.getModule(l_Index)->fileName.string() << "\n";
+        std::cout << "***********************************************\n\n";
         std::stringstream l_Stream;
-        for (Tokenizer::Token l_Token : l_Tokenizers.back().getTokens())
+        for (const Tokenizer::Token& l_Token : l_Tokenizers.back().getTokens())
         {
             // Format per line: l<4 spaces line number> | c<4 spaces column number> | type[(value) if there is value)
             switch (l_Token.type)
@@ -69,7 +70,6 @@ int main(const uint32_t argc, char *argv[]) {
             }
         }
         std::cout << l_Stream.str();
-        std::cout << "***********************************************\n\n";
     }
 
     return 0;

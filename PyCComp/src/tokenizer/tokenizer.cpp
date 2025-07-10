@@ -1,4 +1,6 @@
 #include "tokenizer.hpp"
+
+#include <iostream>
 #include <stdexcept>
 
 struct TokenizerTool
@@ -416,6 +418,12 @@ Tokenizer::Tokenizer(const std::string_view p_Contents)
         l_Tool.errors.push_back({ .message = "Invalid character: " + std::string(1, l_Char), .line = l_Tool.line, .column = l_Tool.column });
     }
     l_Tool.finish();
+
+    // Print errors if any
+    for (const auto& error : l_Tool.errors)
+    {
+        std::cerr << "Error at line "  << error.line << ", column "  << error.column << ": " << error.message << '\n';
+    }
 }
 
 template<size_t S1, size_t S2>
