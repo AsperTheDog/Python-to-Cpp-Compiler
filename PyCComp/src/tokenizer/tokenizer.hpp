@@ -58,13 +58,13 @@ private:
     static bool isOpeningDelimiter(std::string_view p_Delimiter);
     static bool isClosingDelimiter(std::string_view p_Delimiter);
 
-    static constexpr std::array<const char*, 17> c_Keywords{
+    static constexpr std::array<const char*, 18> c_Keywords{
         "if", "else", "elif", "while", "for", "def", "return", "class",
-        "import", "from", "as", "pass", "break", "continue", /*OPERATORS*/ "and", "or", "not"
+        "import", "from", "as", "pass", "break", "continue", "staticmethod", "and", "or", "not"
     };
     static constexpr std::array<const char*, 13> c_UnusedKeywords{
         "try", "except", "finally", "with", "yield", "lambda", "global", "nonlocal",
-        "assert", "raise", "del", "in", /*OPERATORS*/ "is"
+        "assert", "raise", "del", "in", "is"
     };
 
     static constexpr std::array<const char*, 33> c_Operators{
